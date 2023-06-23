@@ -82,28 +82,24 @@ export default class HSTReader {
             throw new Error('There no more candlestick.');
         }
 
-        const candlestick: Candlestick = this.readCandlestickAt(this.currentCandlestickIndex);
-
         this.currentCandlestickIndex++;
 
-        return candlestick;
+        return this.readCandlestickAt(this.currentCandlestickIndex);
     }
 
     public getPreviousCandlestic(): Candlestick {
-        if (this.currentCandlestickIndex - 1 < 0) {
+        if (this.currentCandlestickIndex - 1 < 1) {
             throw new Error('There no more candlestick.');
         }
 
-        const candlestick: Candlestick = this.readCandlestickAt(this.currentCandlestickIndex);
-
         this.currentCandlestickIndex--;
 
-        return candlestick;
+        return this.readCandlestickAt(this.currentCandlestickIndex);
     }
 
-    // read begin with 0 index
+    // read begin with 1 index
     private readCandlestickAt(index: number): Candlestick {
-        let bufferIndex = 148 + (60 * index);
+        let bufferIndex = 148 + (60 * (index - 1));
 
         const ctm = Buffer.alloc(8);
         const open = Buffer.alloc(8);

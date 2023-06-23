@@ -6,23 +6,34 @@ describe('HSTReader class', () => {
     test('getHeader()', () => {
         expect(hstReader.getHeader()).toStrictEqual({
             version: 401,
-            copyright: 'Copyright 2000-2021, MetaQuotes Ltd.',
+            copyright: 'Copyright 2000-2023, MetaQuotes Ltd.',
             symbol: 'EURUSD',
             period: 240,
             digits: 5,
-            timesign: new Date('2021-05-06T14:17:17.000Z'),
+            timesign: new Date('1970-01-01T00:00:00.000Z'),
             lastSync: new Date('1970-01-01T00:00:00.000Z')
         });
     });
 
     test('getNextCandlestick()', () => {
         expect(hstReader.getNextCandlestick()).toStrictEqual({
-            ctm: new Date('2009-12-21T00:00:00.000Z'),
-            open: 1.4311,
-            high: 1.4347,
-            low: 1.4311,
-            close: 1.4311,
-            volume: 2.7193e-320,
+            ctm: new Date('1971-01-04T00:00:00.000Z'),
+            open: 0.5369,
+            high: 0.5369,
+            low: 0.5369,
+            close: 0.5369,
+            volume: 5e-324,
+            spread: 0,
+            realVolume: 0
+        });
+
+        expect(hstReader.getNextCandlestick()).toStrictEqual({
+            ctm: new Date('1971-01-05T00:00:00.000Z'),
+            open: 0.5366,
+            high: 0.5366,
+            low: 0.5366,
+            close: 0.5366,
+            volume: 5e-324,
             spread: 0,
             realVolume: 0
         });
@@ -30,14 +41,16 @@ describe('HSTReader class', () => {
 
     test('getPreviousCandlestic()', () => {
         expect(hstReader.getPreviousCandlestic()).toStrictEqual({
-            ctm: new Date('2009-12-21T00:00:00.000Z'),
-            open: 1.4311,
-            high: 1.4347,
-            low: 1.4311,
-            close: 1.4311,
-            volume: 2.7193e-320,
+            ctm: new Date('1971-01-04T00:00:00.000Z'),
+            open: 0.5369,
+            high: 0.5369,
+            low: 0.5369,
+            close: 0.5369,
+            volume: 5e-324,
             spread: 0,
             realVolume: 0
         });
+
+        expect(() => { hstReader.getPreviousCandlestic() }).toThrow('There no more candlestick.');
     });
 }); 
