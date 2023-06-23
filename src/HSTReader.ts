@@ -21,7 +21,7 @@ type Candlestick = {
     realVolume: number
 }
 
-class HSTReader {
+export default class HSTReader {
     private fd: number;
     private filePath: string;
     private totalCandlestick: number;
@@ -82,9 +82,11 @@ class HSTReader {
             throw new Error('There no more candlestick.');
         }
 
+        const candlestick: Candlestick = this.readCandlestickAt(this.currentCandlestickIndex);
+
         this.currentCandlestickIndex++;
 
-        return this.readCandlestickAt(this.currentCandlestickIndex);
+        return candlestick;
     }
 
     public getPreviousCandlestic(): Candlestick {
@@ -92,9 +94,11 @@ class HSTReader {
             throw new Error('There no more candlestick.');
         }
 
+        const candlestick: Candlestick = this.readCandlestickAt(this.currentCandlestickIndex);
+
         this.currentCandlestickIndex--;
 
-        return this.readCandlestickAt(this.currentCandlestickIndex);
+        return candlestick;
     }
 
     // read begin with 0 index
