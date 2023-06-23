@@ -69,7 +69,7 @@ class HSTWriter {
     }
 
     public writeCandlestick(candlestick: Candlestick) {
-        let bufferIndex = 148; // + (jumlah ohlc * 60);
+        let bufferIndex = 148 + (this.totalCandlestick * 60) + (this.writeCount * 60);
     
         const ctm = Buffer.alloc(8);
         const open = Buffer.alloc(8);
